@@ -1,28 +1,39 @@
 <template src="@/templates/userList.html"> </template>
 
 <script>
+import {mapState,mapActions} from "vuex";
 import UserDataService from "../services/userDataService";
 
 export default {
   name: "users-list",
   data() {
     return {
-      users: [],
+      // users: [],
       currentUser: null,
       currentIndex: -1,
       name: ""
     };
   },
   methods: {
+    ...mapActions(['loadUsers']),
+
     retrieveUsers() {
-      UserDataService.getAll()
-        .then(response => {
-          this.users = response.data.message;
-          console.log(response.data.message);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      // UserDataService.getAll()
+      //   .then(response => {
+      //     this.users = response.data.message;
+      //     console.log(response.data.message);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
+      //this.users = this.$store.dispatch('loadUsers');
+
+        this.$store.dispatch('loadUsers')
+        // .then((response) => {
+        //     this.users  = response.data
+        // })
+
+      //this.users = this.loadUsers();
     },
 
     refreshList() {
@@ -57,6 +68,9 @@ export default {
           console.log(e);
         });
     }
+  },
+  computed:{
+    ...mapState(['users']),
   },
   mounted() {
     this.retrieveUsers();
