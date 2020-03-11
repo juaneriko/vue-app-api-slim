@@ -1,13 +1,13 @@
 <template src="@/templates/userAdd.html"> </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import UserDataService from "../services/userDataService";
 
 export default {
-  name: "add-tutorial",
+  name: "add-user",
   data() {
     return {
-      tutorial: {
+      user: {
         id: null,
         name: "",
         email: "",
@@ -17,16 +17,16 @@ export default {
     };
   },
   methods: {
-    saveTutorial() {
+    saveUser() {
       var data = {
-        name: this.tutorial.name,
-		email: this.tutorial.email,
-		password: this.tutorial.password
+        name: this.user.name,
+		email: this.user.email,
+		password: this.user.password
       };
 
-      TutorialDataService.create(data)
+      UserDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.message.id;
+          this.user.id = response.data.message.id;
           console.log(response.data);
         })
         .catch(e => {
@@ -36,9 +36,9 @@ export default {
       this.submitted = true;
     },
     
-    newTutorial() {
+    newUser() {
       this.submitted = false;
-      this.tutorial = {};
+      this.user = {};
     }
   }
 };

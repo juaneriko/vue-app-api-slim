@@ -7,7 +7,7 @@
           class="form-control"
           id="name"
           required
-          v-model="tutorial.name"
+          v-model="user.name"
           name="name"
         />
       </div>
@@ -18,7 +18,7 @@
           class="form-control"
           id="email"
           required
-          v-model="tutorial.email"
+          v-model="user.email"
           name="email"
         />
       </div>
@@ -29,16 +29,16 @@
 		class="form-control"
 		id="password"
 		required
-		v-model="tutorial.password"
+		v-model="user.password"
 		name="password"
 	/>
 	</div>
 
-      <button @click="saveTutorial" class="btn btn-success">Submit</button>
+      <button @click="saveUser" class="btn btn-success">Submit</button>
     </div>
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newTutorial">Add</button>
+      <button class="btn btn-success" @click="newUser">Add</button>
     </div>
   </div>

@@ -1,21 +1,21 @@
 <template src="@/templates/userView.html"> </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import UserDataService from "../services/userDataService";
 
 export default {
-  name: "tutorial",
+  name: "user",
   data() {
     return {
-      currentTutorial: null,
+      currentUser: null,
       message: ''
     };
   },
   methods: {
-    getTutorial(id) {
-      TutorialDataService.get(id)
+    getUser(id) {
+      UserDataService.get(id)
         .then(response => {
-          this.currentTutorial = response.data.message;
+          this.currentUser = response.data.message;
           console.log(response.data);
         })
         .catch(e => {
@@ -25,15 +25,15 @@ export default {
 
     updatePublished(status) {
       var data = {
-        id: this.currentTutorial.id,
-        name: this.currentTutorial.name,
-        email: this.currentTutorial.email,
+        id: this.currentUser.id,
+        name: this.currentUser.name,
+        email: this.currentUser.email,
         published: status
       };
 
-      TutorialDataService.update(this.currentTutorial.id, data)
+      UserDataService.update(this.currentUser.id, data)
         .then(response => {
-          this.currentTutorial.published = status;
+          this.currentUser.published = status;
           console.log(response.data);
         })
         .catch(e => {
@@ -41,22 +41,22 @@ export default {
         });
     },
 
-    updateTutorial() {
-      TutorialDataService.update(this.currentTutorial.id, this.currentTutorial)
+    updateUser() {
+      UserDataService.update(this.currentUser.id, this.currentUser)
         .then(response => {
           console.log(response.data);
-          this.message = 'The tutorial was updated successfully!';
+          this.message = 'The user was updated successfully!';
         })
         .catch(e => {
           console.log(e);
         });
     },
 
-    deleteTutorial() {
-      TutorialDataService.delete(this.currentTutorial.id)
+    deleteUser() {
+      UserDataService.delete(this.currentUser.id)
         .then(response => {
           console.log(response.data);
-          this.$router.push({ name: "tutorials" });
+          this.$router.push({ name: "users" });
         })
         .catch(e => {
           console.log(e);
@@ -65,7 +65,7 @@ export default {
   },
   mounted() {
     this.message = '';
-    this.getTutorial(this.$route.params.id);
+    this.getUser(this.$route.params.id);
   }
 };
 </script>

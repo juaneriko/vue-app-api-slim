@@ -1,23 +1,23 @@
 <template src="@/templates/userList.html"> </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import UserDataService from "../services/userDataService";
 
 export default {
-  name: "tutorials-list",
+  name: "users-list",
   data() {
     return {
-      tutorials: [],
-      currentTutorial: null,
+      users: [],
+      currentUser: null,
       currentIndex: -1,
       name: ""
     };
   },
   methods: {
-    retrieveTutorials() {
-      TutorialDataService.getAll()
+    retrieveUsers() {
+      UserDataService.getAll()
         .then(response => {
-          this.tutorials = response.data.message;
+          this.users = response.data.message;
           console.log(response.data.message);
         })
         .catch(e => {
@@ -26,18 +26,18 @@ export default {
     },
 
     refreshList() {
-      this.retrieveTutorials();
-      this.currentTutorial = null;
+      this.retrieveUsers();
+      this.currentUser = null;
       this.currentIndex = -1;
     },
 
-    setActiveTutorial(tutorial, index) {
-      this.currentTutorial = tutorial;
+    setActiveUser(tutorial, index) {
+      this.currentUser = tutorial;
       this.currentIndex = index;
     },
 
-    removeAllTutorials() {
-      TutorialDataService.deleteAll()
+    removeAllUsers() {
+      UserDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -48,7 +48,7 @@ export default {
     },
     
     searchName() {
-      TutorialDataService.findByName(this.name)
+      UserDataService.findByName(this.name)
         .then(response => {
           this.tutorials = response.data;
           console.log(response.data);
@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveUsers();
   }
 };
 </script>
